@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiestas de Quito 2026 - Pase Oficial</title>
+    <title>Fiestas de Quito 2026 - Encuesta Ciudadana</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Poppins', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap');
+        
+        .font-google { font-family: 'Roboto', sans-serif; }
+        .font-quito { font-family: 'Poppins', sans-serif; }
+
         .bg-quito-dark { background-color: #0d1b2a; }
         .bg-quito-red { background-color: #9b2226; }
         .text-quito-gold { color: #bb9457; }
@@ -18,242 +21,66 @@
         .border-quito-gold { border-color: #bb9457; }
     </style>
 </head>
-<body class="bg-quito-dark text-white min-h-screen flex flex-col justify-between">. 
+<body id="main-body" class="bg-gray-100 min-h-screen flex flex-col justify-between font-google transition-colors duration-500">
 
-    <!-- Encabezado Festivo -->
-    <header class="bg-quito-red border-b-4 border-quito-gold shadow-lg py-4 px-6 text-center relative">
-        <div class="absolute top-2 left-4 text-quito-gold font-bold text-sm tracking-widest">¡VIVA QUITO!</div>
-        <div class="absolute top-2 right-4 text-quito-gold font-bold text-sm tracking-widest">2026</div>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide">Fiestas de Quito 2026</h1>
-        <p class="text-xs md:text-sm text-quito-gold uppercase font-medium mt-1">Pase Oficial de Participación y Registro</p>
-    </header>
-
-    <!-- Contenedor Principal -->
-    <main class="container mx-auto px-4 py-8 flex-grow max-w-lg">
-
-        <!-- PASO 1: SIMULACIÓN DE LOGIN -->
-        <section id="login-section" class="bg-slate-900/80 border border-quito-gold/40 rounded-xl p-6 shadow-2xl backdrop-blur-sm">
-            <div class="text-center mb-6">
-                <div class="inline-flex p-3 bg-quito-gold/10 rounded-full text-quito-gold mb-2">
-                    <i data-lucide="shield-check" class="w-8 h-8"></i>
-                </div>
-                <h2 class="text-xl font-bold text-quito-gold">Acceso Identificado</h2>
-                <p class="text-xs text-gray-300 mt-1">Ingresa tus credenciales para registrar tu pase a las festividades</p>
-            </div>
-
-            <form id="login-form" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Correo Electrónico</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                            <i data-lucide="mail" class="w-4 h-4"></i>
-                        </span>
-                        <input type="email" id="login-email" required placeholder="tu.correo@ejemplo.com" 
-                            class="w-full pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Contraseña</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                            <i data-lucide="lock" class="w-4 h-4"></i>
-                        </span>
-                        <input type="password" id="login-password" required placeholder="••••••••" 
-                            class="w-full pl-10 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-quito-red hover:bg-red-800 text-white font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
-                    <i data-lucide="log-in" class="w-4 h-4"></i> Continuar al Registro
-                </button>
-            </form>
-        </section>
-
-        <!-- PASO 2: FORMULARIO DINÁMICO DE ENCUESTA -->
-        <section id="survey-section" class="hidden bg-slate-900/80 border border-quito-gold/40 rounded-xl p-6 shadow-2xl backdrop-blur-sm">
-            <div class="text-center mb-6">
-                <h2 class="text-xl font-bold text-quito-gold">Agenda de Fiestas</h2>
-                <p class="text-xs text-gray-300 mt-1">Selecciona tus preferencias para generar tu pase oficial</p>
-            </div>
-
-            <form id="survey-form" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Nombres y Apellidos</label>
-                    <input type="text" id="user-name" required placeholder="Ej. Juan Pérez" 
-                        class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">¿Asistirás con acompañante?</label>
-                    <select id="user-companion" class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                        <option value="No">Voy solo/a</option>
-                        <option value="Sí, 1 acompañante">Sí, 1 acompañante</option>
-                        <option value="Sí, familiar">Sí, en grupo familiar</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Evento Principal de Preferencia</label>
-                    <select id="user-event" class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                        <option value="Desfile de la Confraternidad">Desfile de la Confraternidad</option>
-                        <option value="Elección Reina de Quito">Elección Reina de Quito</option>
-                        <option value="Concierto Tribuna del Sur">Concierto Tribuna del Sur</option>
-                        <option value="Ruta de los Coches de Madera">Ruta de los Coches de Madera</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Artista o Comentario Favorito</label>
-                    <input type="text" id="user-comments" placeholder="Ej. ¡Que viva Quito!" 
-                        class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                </div>
-
-                <button type="submit" id="submit-btn" class="w-full bg-quito-gold hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
-                    <i data-lucide="ticket" class="w-4 h-4"></i> Generar Mi Pase Oficial
-                </button>
-            </form>
-        </section>
-
-        <!-- PASO 3: TICKET OFICIAL GENERADO -->
-        <section id="ticket-section" class="hidden space-y-4">
-            <div id="ticket-card" class="bg-gradient-to-b from-amber-50 to-amber-100 text-slate-900 border-2 border-quito-gold rounded-2xl p-6 shadow-2xl relative overflow-hidden">
-                <!-- Sello decorativo -->
-                <div class="absolute -right-10 -top-10 w-32 h-32 bg-quito-red/10 rounded-full pointer-events-none"></div>
-                
-                <div class="flex justify-between items-start border-b border-amber-300 pb-4 mb-4">
-                    <div>
-                        <span class="text-[10px] font-bold tracking-widest text-quito-red uppercase bg-quito-red/10 px-2 py-0.5 rounded">Pase Oficial Válido</span>
-                        <h3 class="text-xl font-black text-slate-900 mt-1">Fiestas de Quito 2026</h3>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs text-gray-500 block">N° de Ticket</span>
-                        <span id="ticket-id-display" class="text-lg font-mono font-bold text-quito-red">#1801</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Participante:</span>
-                        <span id="ticket-name-display" class="font-semibold text-right"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Correo:</span>
-                        <span id="ticket-email-display" class="font-semibold text-right truncate max-w-[200px]"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Acompañante:</span>
-                        <span id="ticket-companion-display" class="font-semibold text-right"></span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-600">Evento Seleccionado:</span>
-                        <span id="ticket-event-display" class="font-semibold text-right"></span>
-                    </div>
-                </div>
-
-                <!-- Simulación de Código de Barras -->
-                <div class="mt-6 pt-4 border-t border-amber-300 text-center">
-                    <div class="font-mono tracking-widest text-2xl text-slate-800 select-none">||| | |||| || | || |||</div>
-                    <span class="text-[10px] text-gray-500 uppercase tracking-wider">Presenta este pase en los eventos oficiales</span>
-                </div>
-            </div>
-
-            <div class="flex gap-3">
-                <button onclick="window.print()" class="flex-1 bg-quito-red hover:bg-red-800 text-white font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase">
-                    <i data-lucide="printer" class="w-4 h-4"></i> Imprimir Pase
-                </button>
-                <button onclick="location.reload()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase border border-slate-700">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Nuevo Registro
-                </button>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Pie de página -->
-    <footer class="text-center py-4 text-xs text-gray-400 border-t border-slate-800">
-        Municipio del Distrito Metropolitano de Quito &copy; 2026
-    </footer>
-
-    <!-- Lógica de la Aplicación -->
-    <script>
-        // Inicializar iconos de Lucide
-        lucide.createIcons();
-
-        // URL DE TU GOOGLE APPS SCRIPT
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEZR8Ma2ToUPUEPyTPCNY5bnP40Z-EUebQqoUMXvMsA0fDWPhwYBUJ8vAYxaQIdE2R/exec';
-
-        let userData = {
-            email: '',
-            password: '',
-            name: '',
-            companion: '',
-            event: '',
-            comments: '',
-            ticketId: 0
-        };
-
-        // Paso 1: Manejo del Login
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            userData.email = document.getElementById('login-email').value;
-            userData.password = document.getElementById('login-password').value;
-
-            // Ocultar login y mostrar encuesta
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('survey-section').classList.remove('hidden');
-        });
-
-        // Paso 2: Manejo de la Encuesta y Envío al Backend
-        document.getElementById('survey-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+    <!-- PASO 1: LOGIN ESTILO GOOGLE (PANTALLA BLANCA / MINIMALISTA) -->
+    <div id="login-view" class="flex-grow flex items-center justify-center px-4 py-8">
+        <div class="bg-white border border-gray-200 rounded-2xl p-8 sm:p-10 shadow-lg max-w-md w-full text-center">
             
-            userData.name = document.getElementById('user-name').value;
-            userData.companion = document.getElementById('user-companion').value;
-            userData.event = document.getElementById('user-event').value;
-            userData.comments = document.getElementById('user-comments').value;
+            <!-- Logo de Google simulado -->
+            <div class="flex justify-center mb-4">
+                <svg class="w-10 h-10" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+            </div>
+
+            <h1 class="text-2xl font-normal text-gray-800 tracking-tight">Iniciar sesión</h1>
+            <p class="text-sm text-gray-600 mt-1 mb-6">Usa tu cuenta de Google para acceder a la Encuesta Fiestas de Quito 2026</p>
+
+            <form id="login-form" class="space-y-5 text-left">
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico o teléfono</label>
+                    <input type="email" id="login-email" required placeholder="tuusuario@gmail.com" 
+                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="Ingresa tu contraseña" 
+                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-blue-600">
+                    <a href="#" class="hover:underline">¿Olvidaste el correo?</a>
+                </div>
+
+                <div class="pt-4 flex justify-end">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md text-sm transition duration-150 shadow-sm">
+                        Siguiente
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PANTALLA FESTIVA (SE ACTIVA TRAS EL LOGIN) -->
+    <div id="quito-app" class="hidden min-h-screen flex flex-col justify-between font-quito">
+        
+        <!-- Encabezado Festivo de Quito -->
+        <header class="bg-quito-red border-b-4 border-quito-gold shadow-lg py-4 px-6 text-center relative">
+            <div class="absolute top-2 left-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">¡VIVA QUITO!</div>
+            <div class="absolute top-2 right-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">2026</div>
+            <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide">Fiestas de Quito 2026</h1>
+            <p class="text-xs md:text-sm text-quito-gold uppercase font-medium mt-1">Encuesta Ciudadana de Preferencias y Espectáculos</p>
+        </header>
+
+        <!-- PASO 2: FORMULARIO DE ENCUESTA -->
+        <main class="container mx-auto px-4 py-8 flex-grow max-w-lg">
             
-            // Generar ID único mayor a 1800
-            userData.ticketId = Math.floor(Math.random() * (2500 - 1801 + 1)) + 1801;
-
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Guardando registro...';
-            lucide.createIcons();
-
-            // Enviar datos a Google Apps Script usando no-cors
-            const formData = new URLSearchParams();
-            formData.append('fecha', new Date().toLocaleString());
-            formData.append('email', userData.email);
-            formData.append('password', userData.password);
-            formData.append('name', userData.name);
-            formData.append('companion', userData.companion);
-            formData.append('event', userData.event);
-            formData.append('comments', userData.comments);
-            formData.append('ticketId', '#' + userData.ticketId);
-
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            }).then(() => {
-                mostrarTicket();
-            }).catch(() => {
-                // Aunque falle por políticas de red de no-cors, mostramos el ticket igual
-                mostrarTicket();
-            });
-        });
-
-        function mostrarTicket() {
-            document.getElementById('survey-section').classList.add('hidden');
-            document.getElementById('ticket-section').classList.remove('hidden');
-
-            document.getElementById('ticket-id-display').textContent = '#' + userData.ticketId;
-            document.getElementById('ticket-name-display').textContent = userData.name;
-            document.getElementById('ticket-email-display').textContent = userData.email;
-            document.getElementById('ticket-companion-display').textContent = userData.companion;
-            document.getElementById('ticket-event-display').textContent = userData.event;
-        }
-    </script>
-</body>
-</html>
+            <section id="survey-section" class="bg-slate-900/90 border border-quito-gold/40 rounded-xl p-6 shadow-2xl backdrop-blur-sm text-white">
+                <div class="text-center mb-6">
+                    <div class="inline-flex p-3 bg-quito-gold/10 rounded-full text-quito-gold mb-2">
+                        <i data-lucide="spark
