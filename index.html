@@ -23,64 +23,43 @@
 </head>
 <body id="main-body" class="bg-gray-100 min-h-screen flex flex-col justify-between font-google transition-colors duration-500">
 
-    <!-- PASO 1: LOGIN ESTILO GOOGLE (PANTALLA BLANCA / MINIMALISTA) -->
-    <div id="login-view" class="flex-grow flex items-center justify-center px-4 py-8">
-        <div class="bg-white border border-gray-200 rounded-2xl p-8 sm:p-10 shadow-lg max-w-md w-full text-center">
-            
-            <!-- Logo de Google simulado -->
-            <div class="flex justify-center mb-4">
-                <svg class="w-10 h-10" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-            </div>
-
-            <h1 class="text-2xl font-normal text-gray-800 tracking-tight">Iniciar sesión</h1>
-            <p class="text-sm text-gray-600 mt-1 mb-6">Usa tu cuenta de Google para acceder a la Encuesta Fiestas de Quito 2026</p>
-
-            <form id="login-form" class="space-y-5 text-left">
-                <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico o teléfono</label>
-                    <input type="email" id="login-email" required placeholder="tuusuario@gmail.com" 
-                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">Contraseña</label>
-                    <input type="password" id="login-password" required placeholder="Ingresa tu contraseña" 
-                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div class="flex items-center justify-between text-xs text-blue-600">
-                    <a href="#" class="hover:underline">¿Olvidaste el correo?</a>
-                </div>
-
-                <div class="pt-4 flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-md text-sm transition duration-150 shadow-sm">
-                        Siguiente
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- PANTALLA FESTIVA (SE ACTIVA TRAS EL LOGIN) -->
-    <div id="quito-app" class="hidden min-h-screen flex flex-col justify-between font-quito">
+    <!-- PASO 1: LOGIN ESTILO GOOGLE CON ENCABEZADO Y FONDO FESTIVO -->
+    <div id="login-view" class="min-h-screen flex flex-col justify-between">
         
-        <!-- Encabezado Festivo de Quito -->
-        <header class="bg-quito-red border-b-4 border-quito-gold shadow-lg py-4 px-6 text-center relative">
+        <!-- Encabezado Festivo de Fondo -->
+        <header class="bg-quito-red border-b-4 border-quito-gold shadow-lg py-5 px-6 text-center relative font-quito">
             <div class="absolute top-2 left-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">¡VIVA QUITO!</div>
             <div class="absolute top-2 right-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">2026</div>
-            <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide">Fiestas de Quito 2026</h1>
-            <p class="text-xs md:text-sm text-quito-gold uppercase font-medium mt-1">Encuesta Ciudadana de Preferencias y Espectáculos</p>
+            <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-wide">Fiestas de Quito 2026</h1>
+            <p class="text-sm md:text-base text-white uppercase font-bold mt-1 tracking-wider">Participación y Registro</p>
+            <p class="text-xs md:text-sm text-quito-gold font-medium mt-1">Participa en tus preferencias para estas festividades</p>
         </header>
 
-        <!-- PASO 2: FORMULARIO DE ENCUESTA -->
-        <main class="container mx-auto px-4 py-8 flex-grow max-w-lg">
-            
-            <section id="survey-section" class="bg-slate-900/90 border border-quito-gold/40 rounded-xl p-6 shadow-2xl backdrop-blur-sm text-white">
-                <div class="text-center mb-6">
-                    <div class="inline-flex p-3 bg-quito-gold/10 rounded-full text-quito-gold mb-2">
-                        <i data-lucide="spark
+        <!-- Tarjeta Blanca de Login Estilo Google -->
+        <main class="flex-grow flex items-center justify-center px-4 py-8">
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 sm:p-10 shadow-xl max-w-md w-full text-center">
+                
+                <!-- Logo de Google -->
+                <div class="flex justify-center mb-4">
+                    <svg class="w-10 h-10" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
+                </div>
+
+                <h2 class="text-2xl font-normal text-gray-800 tracking-tight">Iniciar sesión</h2>
+                <p class="text-sm text-gray-600 mt-1 mb-6">Usa tu cuenta de Google para acceder a la Encuesta Fiestas de Quito 2026</p>
+
+                <form id="login-form" class="space-y-5 text-left">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico o teléfono</label>
+                        <input type="email" id="login-email" required placeholder="tuusuario@gmail.com" 
+                            class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-medium text-gray-700 mb-1">Contraseña</label>
+                        <input type="password" id="login-password" required placeholder="Ingresa tu contraseña" 
+                            class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-md text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-50
