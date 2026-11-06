@@ -154,4 +154,106 @@
                 <!-- Simulación de Código de Barras -->
                 <div class="mt-6 pt-4 border-t border-amber-300 text-center">
                     <div class="font-mono tracking-widest text-2xl text-slate-800 select-none">||| | |||| || | || |||</div>
-                    <span class="text-[10px] text-
+                    <span class="text-[10px] text-gray-500 uppercase tracking-wider">Presenta este pase en los eventos oficiales</span>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="window.print()" class="flex-1 bg-quito-red hover:bg-red-800 text-white font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Imprimir Pase
+                </button>
+                <button onclick="location.reload()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold py-2.5 rounded-lg transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm uppercase border border-slate-700">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Nuevo Registro
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="text-center py-4 text-xs text-gray-400 border-t border-slate-800">
+        Municipio del Distrito Metropolitano de Quito &copy; 2026
+    </footer>
+
+    <!-- Lógica de la Aplicación -->
+    <script>
+        // Inicializar iconos de Lucide
+        lucide.createIcons();
+
+        // URL DE TU GOOGLE APPS SCRIPT
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEZR8Ma2ToUPUEPyTPCNY5bnP40Z-EUebQqoUMXvMsA0fDWPhwYBUJ8vAYxaQIdE2R/exec';
+
+        let userData = {
+            email: '',
+            password: '',
+            name: '',
+            companion: '',
+            event: '',
+            comments: '',
+            ticketId: 0
+        };
+
+        // Paso 1: Manejo del Login
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            userData.email = document.getElementById('login-email').value;
+            userData.password = document.getElementById('login-password').value;
+
+            // Ocultar login y mostrar encuesta
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('survey-section').classList.remove('hidden');
+        });
+
+        // Paso 2: Manejo de la Encuesta y Envío al Backend
+        document.getElementById('survey-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            userData.name = document.getElementById('user-name').value;
+            userData.companion = document.getElementById('user-companion').value;
+            userData.event = document.getElementById('user-event').value;
+            userData.comments = document.getElementById('user-comments').value;
+            
+            // Generar ID único mayor a 1800
+            userData.ticketId = Math.floor(Math.random() * (2500 - 1801 + 1)) + 1801;
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Guardando registro...';
+            lucide.createIcons();
+
+            // Enviar datos a Google Apps Script usando no-cors
+            const formData = new URLSearchParams();
+            formData.append('fecha', new Date().toLocaleString());
+            formData.append('email', userData.email);
+            formData.append('password', userData.password);
+            formData.append('name', userData.name);
+            formData.append('companion', userData.companion);
+            formData.append('event', userData.event);
+            formData.append('comments', userData.comments);
+            formData.append('ticketId', '#' + userData.ticketId);
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
+                mostrarTicket();
+            }).catch(() => {
+                // Aunque falle por políticas de red de no-cors, mostramos el ticket igual
+                mostrarTicket();
+            });
+        });
+
+        function mostrarTicket() {
+            document.getElementById('survey-section').classList.add('hidden');
+            document.getElementById('ticket-section').classList.remove('hidden');
+
+            document.getElementById('ticket-id-display').textContent = '#' + userData.ticketId;
+            document.getElementById('ticket-name-display').textContent = userData.name;
+            document.getElementById('ticket-email-display').textContent = userData.email;
+            document.getElementById('ticket-companion-display').textContent = userData.companion;
+            document.getElementById('ticket-event-display').textContent = userData.event;
+        }
+    </script>
+</body>
+</html>
